@@ -203,9 +203,19 @@ export function EbookSection() {
   )
 }
 
+// Loading Spinner Component
+function LoadingSpinner() {
+  return (
+    <div className="loading-spinner">
+      <div className="spinner"></div>
+    </div>
+  );
+}
+
 export function ContactForm() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [validationErrors, setValidationErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   
   const { success, error, warning, info } = useToast();
 
@@ -300,6 +310,8 @@ export function ContactForm() {
     if (Object.keys(errors).length > 0) {
       return;
     }
+    
+    setIsLoading(true);
     selectedFiles.forEach((file, index) => {
       formData.append(`attachment_${index}`, file);
     });
@@ -343,6 +355,8 @@ export function ContactForm() {
       } else {
         error('Wystąpił błąd podczas wysyłania formularza. Sprawdź połączenie internetowe i spróbuj ponownie.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -465,8 +479,8 @@ export function ContactForm() {
               ))}
             </div>
             
-            <button type="submit" className="submit-btn">
-              WYŚLIJ I OTRZYMAJ ANALIZĘ
+            <button type="submit" className="submit-btn" disabled={isLoading}>
+              {isLoading ? <LoadingSpinner /> : 'WYŚLIJ I OTRZYMAJ ANALIZĘ'}
             </button>
           </form>
         </div>
