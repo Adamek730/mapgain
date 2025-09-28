@@ -10,6 +10,16 @@ html, body {
   height: 100%;
 }
 
+.layout-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-container > main {
+  flex: 1;
+}
+
 body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden;line-height:1.6;min-height:100vh;}
 
 
@@ -504,43 +514,6 @@ body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,Int
 
 .contact-page {
   padding-top: 20px;
-  min-height: calc(100vh - 72px); /* Subtract header height */
-  display: flex;
-  flex-direction: column;
-}
-
-/* Make footer stick to bottom on contact page - desktop only */
-@media (min-width: 769px) {
-  .contact-page-footer .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-top: 0;
-    z-index: 100;
-  }
-
-  /* Add bottom padding to contact page content to prevent overlap */
-  .contact-page-footer .main-container {
-    padding-bottom: 120px;
-  }
-}
-
-/* Mobile: normal footer behavior with reduced margin */
-@media (max-width: 768px) {
-  .contact-page-footer .footer {
-    margin-top: 30px;
-  }
-  
-  .contact-page-footer .main-container {
-    padding-bottom: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-page-footer .footer {
-    margin-top: 20px;
-  }
 }
 
 .contact-hero {
@@ -873,22 +846,6 @@ body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,Int
 .submit-btn:disabled{opacity:0.7;cursor:not-allowed;}
 
 .submit-btn:disabled:hover{background:rgba(255,255,255,0.05);}
-
-/* Loading spinner animation */
-.loading-spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top: 2px solid #ffffff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-right: 8px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
 
 
 

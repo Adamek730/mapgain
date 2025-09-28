@@ -478,14 +478,7 @@ export function ContactForm() {
               aria-busy={isLoading}
               aria-disabled={isLoading}
             >
-              {isLoading ? (
-                <>
-                  <div className="loading-spinner"></div>
-                  WYSYŁANIE...
-                </>
-              ) : (
-                'WYŚLIJ I OTRZYMAJ ANALIZĘ'
-              )}
+              {isLoading ? 'WYSYŁANIE...' : 'WYŚLIJ I OTRZYMAJ ANALIZĘ'}
             </button>
           </form>
         </div>

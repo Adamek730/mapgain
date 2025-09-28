@@ -7,12 +7,10 @@ export function BodyClassHandler() {
 
   useEffect(() => {
     // Remove any existing page-specific classes
-    document.body.classList.remove('contact-page-footer', 'home-page', 'ebook-page')
+    document.body.classList.remove('home-page', 'ebook-page')
     
     // Add class based on current route
-    if (pathname === '/kontakt') {
-      document.body.classList.add('contact-page-footer')
-    } else if (pathname === '/') {
+    if (pathname === '/') {
       document.body.classList.add('home-page')
     } else if (pathname === '/ebook') {
       document.body.classList.add('ebook-page')

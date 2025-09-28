@@ -10,7 +10,7 @@ export default function ContactPage() {
       <BackgroundContainer />
       <Header />
       
-      <main className="main-container contact-page">
+      <main className="main-container">
         <div className="contact-hero">
           <h1 className="contact-title">
             ROZPOCZNIJ <span className="highlight">WSPÓŁPRACĘ</span>

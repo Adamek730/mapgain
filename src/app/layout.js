@@ -20,8 +20,10 @@ export default function RootLayout({ children }) {
       <body className={`${plusJakartaSans.className} font-sans`}>
         <BodyClassHandler />
         <ToastProvider>
-          {children}
-          <Footer />
+          <div className="layout-container">
+            {children}
+            <Footer />
+          </div>
         </ToastProvider>
       </body>
     </html>
