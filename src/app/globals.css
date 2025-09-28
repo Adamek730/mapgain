@@ -18,9 +18,11 @@ html, body {
 
 .layout-container > main {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden;line-height:1.6;min-height:100vh;}
+body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
 
 
 .background-container{
@@ -1651,7 +1653,8 @@ html {
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
   padding: 40px 0;
-  margin-top: 80px;
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .footer-container {
