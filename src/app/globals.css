@@ -1,4 +1,5 @@
 
+/* Footer fix v2 - Cache bust: 2024-12-19 */
 :root{--bg:#0a0b0e;--bg-2:#0d0f14;--fg:#f3f4f6;--muted:#a8b0bb;--card:#0f1117;--border:rgba(255,255,255,.08);--accent:#1e40af;--accent-weak:rgba(30,64,175,.12)}
 * {
   margin: 0;
@@ -11,15 +12,21 @@ html, body {
 }
 
 .layout-container {
-  min-height: 100vh;
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.layout-container > main {
+  flex: 1 !important;
   display: flex;
   flex-direction: column;
 }
 
-.layout-container > main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+/* Ensure footer is always at bottom */
+.layout-container .footer {
+  margin-top: auto !important;
+  flex-shrink: 0 !important;
 }
 
 body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
@@ -1649,12 +1656,14 @@ html {
 }
 
 .footer {
-  background: rgba(10, 12, 16, 0.95);
+  background: rgba(10, 12, 16, 0.95) !important;
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
   padding: 40px 0;
-  margin-top: auto;
-  flex-shrink: 0;
+  margin-top: auto !important;
+  flex-shrink: 0 !important;
+  position: relative;
+  width: 100%;
 }
 
 .footer-container {
