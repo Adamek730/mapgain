@@ -204,11 +204,15 @@ export function EbookSection() {
 }
 
 // Loading Spinner Component
-function LoadingSpinner() {
+function LoadingSpinner({ label = 'Wysyłanie…' }) {
   return (
-    <div className="loading-spinner">
-      <div className="spinner"></div>
-    </div>
+    <span className="loading-spinner" role="status" aria-live="polite" aria-label={label}>
+      <svg className="spinner-svg" viewBox="0 0 50 50" focusable="false" aria-hidden="true">
+        <circle className="spinner-track" cx="25" cy="25" r="22" fill="none" strokeWidth="4" />
+        <circle className="spinner-indicator" cx="25" cy="25" r="22" fill="none" strokeWidth="4" />
+      </svg>
+      <span className="spinner-text">{label}</span>
+    </span>
   );
 }
 
@@ -479,8 +483,14 @@ export function ContactForm() {
               ))}
             </div>
             
-            <button type="submit" className="submit-btn" disabled={isLoading}>
-              {isLoading ? <LoadingSpinner /> : 'WYŚLIJ I OTRZYMAJ ANALIZĘ'}
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={isLoading}
+              aria-busy={isLoading}
+              aria-disabled={isLoading}
+            >
+              {isLoading ? <LoadingSpinner label="Wysyłanie…" /> : 'WYŚLIJ I OTRZYMAJ ANALIZĘ'}
             </button>
           </form>
         </div>
