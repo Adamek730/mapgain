@@ -212,6 +212,12 @@ function LoadingSpinner({ label = 'Wysyłanie…' }) {
         <circle className="spinner-indicator" cx="25" cy="25" r="22" fill="none" strokeWidth="4" />
       </svg>
       <span className="spinner-text">{label}</span>
+      {/* Fallback loading indicator */}
+      <span className="loading-dots" style={{ marginLeft: '8px' }}>
+        <span style={{ animationDelay: '0s' }}>.</span>
+        <span style={{ animationDelay: '0.2s' }}>.</span>
+        <span style={{ animationDelay: '0.4s' }}>.</span>
+      </span>
     </span>
   );
 }
@@ -315,7 +321,12 @@ export function ContactForm() {
       return;
     }
     
+    // Force loading state to be visible
     setIsLoading(true);
+    
+    // Add a small delay to ensure loading state is visible
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     selectedFiles.forEach((file, index) => {
       formData.append(`attachment_${index}`, file);
     });
@@ -325,6 +336,8 @@ export function ContactForm() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
       
+      console.log('🚀 Starting form submission...');
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         body: formData,
@@ -332,6 +345,8 @@ export function ContactForm() {
       });
       
       clearTimeout(timeoutId);
+      
+      console.log('📡 Response received:', response.status);
       
       if (response.ok) {
         const result = await response.json();
@@ -354,13 +369,19 @@ export function ContactForm() {
         }
       }
     } catch (error) {
+      console.error('❌ Form submission error:', error);
+      
       if (error.name === 'AbortError') {
         error('Wysyłanie formularza przekroczyło limit czasu. Spróbuj ponownie z mniejszą liczbą plików.');
       } else {
         error('Wystąpił błąd podczas wysyłania formularza. Sprawdź połączenie internetowe i spróbuj ponownie.');
       }
     } finally {
-      setIsLoading(false);
+      // Add a small delay before hiding loading state
+      setTimeout(() => {
+        setIsLoading(false);
+        console.log('✅ Loading state cleared');
+      }, 500);
     }
   };
 
@@ -489,8 +510,21 @@ export function ContactForm() {
               disabled={isLoading}
               aria-busy={isLoading}
               aria-disabled={isLoading}
+              style={{
+                opacity: isLoading ? 0.7 : 1,
+                cursor: isLoading ? 'not-allowed' : 'pointer'
+              }}
             >
-              {isLoading ? <LoadingSpinner label="Wysyłanie…" /> : 'WYŚLIJ I OTRZYMAJ ANALIZĘ'}
+              {isLoading ? (
+                <>
+                  <LoadingSpinner label="Wysyłanie…" />
+                  <span style={{ marginLeft: '10px', fontSize: '0.9rem', opacity: 0.8 }}>
+                    Proszę czekać...
+                  </span>
+                </>
+              ) : (
+                'WYŚLIJ I OTRZYMAJ ANALIZĘ'
+              )}
             </button>
           </form>
         </div>
