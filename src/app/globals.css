@@ -875,13 +875,24 @@ body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,Int
 .submit-btn:disabled:hover{background:rgba(255,255,255,0.05);}
 
 .loading-spinner{display:inline-flex;align-items:center;gap:10px;}
-.spinner-svg{width:20px;height:20px;animation:spinner-rotate 1s linear infinite;}
+.spinner-svg{width:20px;height:20px;animation:spinner-rotate 1s linear infinite;will-change:transform;}
 .spinner-track{stroke:rgba(255,255,255,0.25);}
-.spinner-indicator{stroke:#ffffff;stroke-linecap:round;stroke-dasharray:140;stroke-dashoffset:105;animation:spinner-dash 1.2s ease-in-out infinite;}
+.spinner-indicator{stroke:#ffffff;stroke-linecap:round;stroke-dasharray:140;stroke-dashoffset:105;animation:spinner-dash 1.2s ease-in-out infinite;will-change:stroke-dashoffset;}
 .spinner-text{font-size:.9rem;color:#ffffff;opacity:.9;}
 
 @keyframes spinner-rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 @keyframes spinner-dash{0%{stroke-dashoffset:140;}50%{stroke-dashoffset:35;}100%{stroke-dashoffset:140;}}
+
+/* Fallback for when animations don't work */
+.loading-spinner .spinner-indicator {
+  opacity: 0.8;
+}
+
+/* Ensure loading spinner is always visible */
+.submit-btn:disabled .loading-spinner {
+  opacity: 1;
+  visibility: visible;
+}
 
 
 @keyframes shimmer {
@@ -1325,6 +1336,15 @@ html {
   .success-popup {
     animation: none;
     transition: none;
+  }
+  
+  /* Ensure loading spinner still works for accessibility */
+  .loading-spinner .spinner-svg {
+    animation: spinner-rotate 1s linear infinite;
+  }
+  
+  .loading-spinner .spinner-indicator {
+    animation: spinner-dash 1.2s ease-in-out infinite;
   }
 }
 
